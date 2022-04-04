@@ -3,8 +3,8 @@ import axios from 'axios';
 
 export default function useApp(){
     const update = () => {
-		axios.get('http://kanbanapi.jrk.atthost24.pl/').then(response => {
-			setJson(response.data);
+	axios.get('https://procodetest2.azurewebsites.net/').then(response => {
+	    setJson(response.data);
 		});
 	}
 
@@ -16,9 +16,9 @@ export default function useApp(){
 
 	function onCreateGroup(e){
 		e.preventDefault();
-		axios.post('http://kanbanapi.jrk.atthost24.pl/group/', {
-			name: e.target[0].value,
-			limit: e.target[1].value
+	    axios.post('https://procodetest2.azurewebsites.net/group/', {
+		name: e.target[0].value,
+		limit: e.target[1].value
 		}).then(response => {
 			console.log('Dodano nową grupę.');
 			closeCreateGroupModal();
@@ -30,9 +30,9 @@ export default function useApp(){
 	}
 
 	const onEditGroup = (id, name, limit, close) => {
-		axios.put('http://kanbanapi.jrk.atthost24.pl/group/' + id + '/', {
-			name: name,
-			limit: limit
+	    axios.put('https://procodetest2.azurewebsites.net/group/' + id + '/', {
+		name: name,
+		limit: limit
 		}).then(response => {
 			console.log('Zmiany');
 			close();
@@ -44,8 +44,8 @@ export default function useApp(){
 	}
 
 	function onDeleteGroup(id, close){
-		axios.delete('http://kanbanapi.jrk.atthost24.pl/group/' + id + '/').then(response => {
-			console.log('Grupa została usunięta.');
+	    axios.delete('https://procodetest2.azurewebsites.net/group/' + id + '/').then(response => {
+		console.log('Grupa została usunięta.');
 			close();
 			update();
         })
@@ -59,10 +59,10 @@ export default function useApp(){
 	const closeCreateGroupModal = () => setShowCreateGroupModal(false);
 
 	const onCreateTask = (e, g) => {
-		axios.post('http://kanbanapi.jrk.atthost24.pl/task/', {
-			title: e.target[0].value,
-			description: e.target[1].value,
-			group: g.id
+	    axios.post('https://procodetest2.azurewebsites.net/task/', {
+		title: e.target[0].value,
+		description: e.target[1].value,
+		group: g.id
 		}).then(response => {
 			console.log('Dodano nowe zadanie.');
 			update();
@@ -73,8 +73,8 @@ export default function useApp(){
 	}
 
 	const onEditTask = (t, e) => {
-		axios.put('http://kanbanapi.jrk.atthost24.pl/task/' + t.id + '/', {
-			title: e.target[0].value,
+	    axios.put('https://procodetest2.azurewebsites.net/task/' + t.id + '/', {
+		title: e.target[0].value,
 			description: e.target[1].value,
 			group: t.group,
 		}).then(response => {
@@ -89,8 +89,8 @@ export default function useApp(){
 	}
 
 	function onDeleteTask(id){
-		axios.delete('http://kanbanapi.jrk.atthost24.pl/task/' + id + '/').then(response => {
-			console.log('Zadanie usunięte.');
+	    axios.delete('https://procodetest2.azurewebsites.net/task/' + id + '/').then(response => {
+		console.log('Zadanie usunięte.');
 			update();
         })
         .catch(error => {

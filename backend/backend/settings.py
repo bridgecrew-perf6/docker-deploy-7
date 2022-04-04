@@ -33,7 +33,12 @@ SECRET_KEY = "django-insecure-teb=v8-87t4htex9&&dibor$uctne=c+ro71s+c)qet8)^&%0x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["kanbanapi.jrk.atthost24.pl", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = [
+    "kanbanapi.jrk.atthost24.pl",
+    "localhost",
+    "127.0.0.1",
+    "procodetest2.azurewebsites.net",
+]
 
 ##################### DEV ONLY
 CORS_ALLOW_ALL_ORIGINS = True
@@ -94,6 +99,16 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
+    # # postgres
+    # "default": {
+    #     "ENGINE": "django.db.backends.postgresql",
+    #     "NAME": "mydatabase",
+    #     "USER": "mydatabaseuser",
+    #     "PASSWORD": "mypassword",
+    #     "HOST": "127.0.0.1",
+    #     "PORT": "5432",
+    # }
+    # mysql
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "procode",

@@ -2,7 +2,9 @@ version: "3.8"
 
 services:
   web:
-    build: ./frontend
+    build:
+      context: ./frontend
+    image: dockerprocode.azurecr.io/docker-deploy_web_1
     # command: npm start
     ports:
       - "3000:3000"
@@ -10,16 +12,31 @@ services:
       - api
 
   api:
-    build: ./backend
+    build:
+      context: ./backend
     # command: python manage.py runserver 0.0.0.0:8000
+    image: dockerprocode.azurecr.io/docker-deploy_api_1
     ports:
       - "8000:8000"
-    environment:
-      DB_URL: mysql://db/procode
     depends_on:
       - db
+    environment:
+      DB_URL: mysql://db/procode
+      # DEBUG: 1
+      # SECRET_KEY: ANYTHINGYOUWANTBUTSTRONG!
+      # DJANGO_ALLOWED_HOSTS: localhost 127.0.0.1 [::1]
+
+  # db:
+  #   image: 'postgres:latest'
+  #   ports:
+  #     - 5432:5432
+  #   environment:
+  #     POSTGRES_USER: username
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: procode
 
   db:
+    # image: dockerprocode.azurecr.io/mysql:8.0
     image: mysql:8.0
     restart: always
     environment:
@@ -31,7 +48,7 @@ services:
       # Password for root access
       MYSQL_ROOT_PASSWORD: ''
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
-      # MYSQL_RANDOM_ROOT_PASSWORD: ""
+      # MYSQL_RANDOM_ROOT_PASSWORD: yes
     ports:
       # <Port exposed> : < MySQL Port running inside container>
       - '3306:3306'
@@ -41,6 +58,8 @@ services:
       # Where our data will be persisted
     volumes:
       - my-db:/var/lib/mysql
+      # - my-db:/run/mysqld
+      # - /var/run/mysqld/mysqld.sock:/tmp/mysql.sock
 
 # Names our volume
 volumes:
